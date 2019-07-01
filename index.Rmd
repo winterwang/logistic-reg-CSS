@@ -1,7 +1,7 @@
 ---
 title: "Understand Logistic Regression"
 subtitle: "why we use it and what does it provide"
-author: "[王　超辰 | Chaochen Wang](wangcc.me)"
+author: "[王　超辰 | Chaochen Wang](https://wangcc.me)"
 date: "2019-07-08 17:00~18:00 @CSS"
 output:
   xaringan::moon_reader:
@@ -64,4 +64,4 @@ $$
 $$
 
 
-Where, $\log(\mathbf{Odds}_{E-})$ is called **"Baseline in the unexposed"** 
+Where, <br> $\log(\mathbf{Odds}_{E-})$ is called **"Baseline log odds in the unexposed group"** <br> $\log(\mathbf{OR})$
