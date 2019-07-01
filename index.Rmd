@@ -1,0 +1,47 @@
+---
+title: "Understand Logistic Regression"
+subtitle: "why we use it and what does it provide"
+author: "王　超辰 | Chaochen Wang"
+date: "2019-07-08 am"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      countdown: 60000
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+mono_light(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  # text_font_google   = google_font("M PLUS Rounded 1c", "300", "300i"),
+  text_font_google = google_font("Noto Sans JP", "300", "300i"), 
+  code_font_google   = google_font("Droid Mono"),
+  text_bold_color = "#B03A2E",
+  title_slide_background_image = "pic/"
+)
+# write_xaringan_theme(text_bold_color = "#FF4333")
+```
+
+
+
+class: middle
+# objectives
+
+- Use a logistic regression model to compare the log odds of disease in two groups $\Rightarrow$ estimate a crude odds ratio for **a binary exposure**.
+
+- Use a logistic regression model to compare the odds of disease for a categorical exposure with **2 or more levels**.
+
+
+
+---
+class:middle
+## Odds and Odds ratios
+
+- the odds of a disease is defined as:  $$\mathbf{Odds} = \frac{n_{D}}{n_{\bar{D}}}$$
