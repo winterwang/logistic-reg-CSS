@@ -67,7 +67,7 @@ h1, h2, h3 {
 }
 strong{color:#B03A2E;}
 a, a > code {
-  color: #f0f0f0;
+  color: #2c7fb8;
   text-decoration: none;
 }
 .footnote {
@@ -83,7 +83,7 @@ a, a > code {
 .inverse {
   background-color: #1c5253;
   color: #E8EDED;
-  
+  text-shadow: 0 0 20px #333;
 }
 .inverse h1, .inverse h2, .inverse h3 {
   color: #E8EDED;

@@ -1,7 +1,7 @@
 ---
 title: "Understand Logistic Regression"
 subtitle: "why we use it and what does it provide"
-author: "[王　超辰 | Chaochen Wang](https://wangcc.me)"
+author: "王　超辰 | Chaochen Wang"
 date: "2019-07-08 17:00~18:00 @CSS"
 output:
   xaringan::moon_reader:
@@ -24,8 +24,9 @@ mono_light(
   text_font_google = google_font("Noto Sans JP", "300", "300i"), 
   code_font_google   = google_font("Droid Mono"),
   text_bold_color = "#B03A2E",
-  link_color = "#f0f0f0",
-  title_slide_background_image = "pic/"
+  link_color = "#2c7fb8",
+  title_slide_background_image = "pic/",
+  inverse_text_shadow = TRUE
 )
 # write_xaringan_theme(text_bold_color = "#FF4333")
 ```
@@ -64,4 +65,56 @@ $$
 $$
 
 
-Where, <br> $\log(\mathbf{Odds}_{E-})$ is called **"Baseline log odds in the unexposed group"** <br> $\log(\mathbf{OR})$
+Where, <br> $\log(\mathbf{Odds}_{E-})$ is called the **"Baseline log odds in the unexposed group"** <br> $\log(\mathbf{OR})$ is referred as the **"log odds ratio of the exposure"** 
+
+
+This is an example of a logistic regression model. 
+
+
+---
+class: middle, inverse, center
+
+# The end
+
+---
+class: middle
+
+## Logistic regression model
+
+**It models the log odds of the disease:**
+
+- Among unexposed individuals $(E-)$: <br> log odds of disease = Baseline
+
+- Among exposed individuals $(E+)$: <br> log odds of disease = Baseline + Exposure
+
+Where, **"Exposure" is the log odds ratio** and the model is **additive**.
+
+So, in any kind of statistical software, logistic regression model does everything on the log odds scale. We/the software can (manually/automatically) convert it back to odds ratio scale, the thing we use to report.
+
+
+
+---
+class: middle, inverse, center
+
+# Why log odds of the disease?
+
+
+
+---
+class:middle
+
+## Why log odds of the disease?
+
+
+
+- Linear regression is appropriate for outcome variables like birth weight/height/BMI etc., which are continuous and follows a [normal distribution](https://ja.wikipedia.org/wiki/%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83).
+
+- When the outcome variables are binary response (died/alive, infected/uninfected, diseased/healthy, succeeded/failed, etc.), it is easier to model the log odds. Because log odds can take any value, positive or negative. But percentages of died/infected/diseased/succeeded are constrained between 0 and 1. 
+
+- All logs are base $e$.
+
+---
+class:middle
+background-image: url("./pic/LogReg_1.png")
+background-position: 50% 50%
+background-size: contain
