@@ -12,8 +12,8 @@ class: center, middle, inverse, title-slide
 
 # Understand Logistic Regression
 ## why we use it and what does it provide
-### 王　超辰 | Chaochen Wang
-### 2019-07-08 am
+### <a href="wangcc.me">王　超辰 | Chaochen Wang</a>
+### 2019-07-08 17:00~18:00 <span class="citation">@CSS</span>
 
 ---
 
@@ -34,9 +34,28 @@ class: middle
 
 ---
 class:middle
-## Odds and Odds ratios
+## Odds and Odds ratio (OR)
 
-- the odds of a disease is defined as:  `$$\mathbf{Odds} = \frac{n_{D}}{n_{\bar{D}}}$$`
+- The odds of a disease is defined as:  `$$\mathbf{Odds} = \frac{n_{D+}}{n_{D-}}$$` &lt;br&gt; where `\(D+\)` indicates individuals **with disease (such as lung cancer)** &lt;br&gt; `\(D-\)` indicates individuals **without the disease**
+
+
+- The ratio of the odds between groups is a **measure for comparing the frequency of disease:** `$$\mathbf{OR} = \frac{\mathbf{Odds}_{E+}}{\mathbf{Odds}_{E-}}$$` &lt;br&gt; where `\(E+\)` indicates individuals **with exposure (such as smoking)** &lt;br&gt; `\(E-\)` indicates individuals **without the exposure**
+
+
+
+---
+class:middle
+## Logistic regression model in a nutshell
+
+$$
+`\begin{aligned}
+\mathbf{Odds}_{E+} &amp; = \mathbf{Odds}_{E-} \times \mathbf{OR} \\
+\Rightarrow \log(\mathbf{Odds}_{E+}) &amp; = \log(\mathbf{Odds}_{E-}) + \log(\mathbf{OR})
+\end{aligned}`
+$$
+
+
+Where, `\(\log(\mathbf{Odds}_{E-})\)` is called **"Baseline in the unexposed"**
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

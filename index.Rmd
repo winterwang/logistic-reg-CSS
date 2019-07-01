@@ -1,8 +1,8 @@
 ---
 title: "Understand Logistic Regression"
 subtitle: "why we use it and what does it provide"
-author: "王　超辰 | Chaochen Wang"
-date: "2019-07-08 am"
+author: "[王　超辰 | Chaochen Wang](wangcc.me)"
+date: "2019-07-08 17:00~18:00 @CSS"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
@@ -24,6 +24,7 @@ mono_light(
   text_font_google = google_font("Noto Sans JP", "300", "300i"), 
   code_font_google   = google_font("Droid Mono"),
   text_bold_color = "#B03A2E",
+  link_color = "#f0f0f0",
   title_slide_background_image = "pic/"
 )
 # write_xaringan_theme(text_bold_color = "#FF4333")
@@ -42,6 +43,25 @@ class: middle
 
 ---
 class:middle
-## Odds and Odds ratios
+## Odds and Odds ratio (OR)
 
-- the odds of a disease is defined as:  $$\mathbf{Odds} = \frac{n_{D}}{n_{\bar{D}}}$$
+- The odds of a disease is defined as:  $$\mathbf{Odds} = \frac{n_{D+}}{n_{D-}}$$ <br> where $D+$ indicates individuals **with disease (such as lung cancer)** <br> $D-$ indicates individuals **without the disease**
+
+
+- The ratio of the odds between groups is a **measure for comparing the frequency of disease:** $$\mathbf{OR} = \frac{\mathbf{Odds}_{E+}}{\mathbf{Odds}_{E-}}$$ <br> where $E+$ indicates individuals **with exposure (such as smoking)** <br> $E-$ indicates individuals **without the exposure**
+
+
+
+---
+class:middle
+## Logistic regression model in a nutshell
+
+$$
+\begin{aligned}
+\mathbf{Odds}_{E+} & = \mathbf{Odds}_{E-} \times \mathbf{OR} \\
+\Rightarrow \log(\mathbf{Odds}_{E+}) & = \log(\mathbf{Odds}_{E-}) + \log(\mathbf{OR})
+\end{aligned}
+$$
+
+
+Where, $\log(\mathbf{Odds}_{E-})$ is called **"Baseline in the unexposed"** 
