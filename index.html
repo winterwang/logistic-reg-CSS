@@ -307,6 +307,37 @@ logistic.display(vimp_logm0, decimal = 3)
 ---
 class: middle 
 ## Logistic model for comparison of more than two exposure groups
+
+When the predictor (explanatory) variable has more than 2 levels, all OR are **relative to the baseline group**. 
+
+
+
+
+
+```r
+tab &lt;- stat.table(index = list(Died = died, 
+                               "Microfilarial infection mf/mg (grouped)" = mfgrp),
+                   contents = list(count(),percent(died)), 
+                  data = mortality, margins = T)
+print(tab, digits = 2)
+```
+
+```
+##  --------------------------------------------------- 
+##         --Microfilarial infection mf/mg (grouped)--- 
+##  Died    Uninfected    &lt; 10   10-49     50+   Total  
+##  --------------------------------------------------- 
+##  0          1274.00 1609.00  996.00  193.00 4161.00  
+##               97.77   96.29   96.79   95.54   96.81  
+##                                                      
+##  1            29.00   62.00   33.00    9.00  137.00  
+##                2.23    3.71    3.21    4.46    3.19  
+##                                                      
+##                                                      
+##  Total      1303.00 1671.00 1029.00  202.00 4298.00  
+##              100.00  100.00  100.00  100.00  100.00  
+##  ---------------------------------------------------
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
