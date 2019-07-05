@@ -24,7 +24,7 @@ class: center, middle, inverse, title-slide
 
 
 class: middle
-# objectives
+# Objectives
 
 - Use a logistic regression model to compare the log odds of disease in two groups `\(\Rightarrow\)` estimate a crude odds ratio for **a binary exposure**.
 
@@ -108,6 +108,23 @@ class:middle
 background-image: url("./pic/LogReg_1.png")
 background-position: 50% 50%
 background-size: contain
+
+
+---
+class:middle
+# Example
+
+- [Data](https://github.com/winterwang/logistic-reg-CSS/raw/gh-pages/dataset/mortality.dta) from a study conducted in a rural area of northern Nigeria in the late 1980s to early 1990s. 
+
+- This cohort study with fixed follow-up time included persons aged `\(\geqslant\)` 15 years who all underwent an eye examination by ophthalmic (眼科) nurses. 
+
+- Individuals were classified as visually impaired or with normal vision. 
+
+- Communities were followed-up over a period of 3 years and deaths were identified. 
+
+- We will study the relationship between **the outcome: dead (=1) or alive (=0)**, and **two exposure factors**: 
+    - visual impairment as a binary variable (0=unimpaired, 1=visually impaired (including blind))
+    - microfilarial infection grouped into 4 levels (negative, &lt;10, 10-49, ≥50 mf/mg).
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
