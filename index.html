@@ -125,6 +125,42 @@ class:middle
 - We will study the relationship between **the outcome: dead (=1) or alive (=0)**, and **two exposure factors**: 
     - visual impairment as a binary variable (0=unimpaired, 1=visually impaired (including blind))
     - microfilarial infection grouped into 4 levels (negative, &lt;10, 10-49, ≥50 mf/mg).
+    
+---
+class:middle
+## Estimate the odds, log odds, and the odds ratio "by hand"
+
+
+```r
+# install the package if needed by install.packages("haven")
+library(haven)
+mortality &lt;- read_dta("dataset/mortality.dta") 
+# change your path accordingly
+# install the package if needed by install.packages("Epi")
+library(Epi)
+tab &lt;- stat.table(index = list(Died = died, 
+                               "Visually impaired" = vimp),
+                   contents=list(count(),percent(died)), 
+                  data=mortality, margins=T)
+print(tab, digits = 2)
+```
+
+```
+##  -------------------------------- 
+##         ----Visually impaired---- 
+##  Died          0       1   Total  
+##  -------------------------------- 
+##  0       3874.00  287.00 4161.00  
+##            97.56   87.77   96.81  
+##                                   
+##  1         97.00   40.00  137.00  
+##             2.44   12.23    3.19  
+##                                   
+##                                   
+##  Total   3971.00  327.00 4298.00  
+##           100.00  100.00  100.00  
+##  --------------------------------
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
