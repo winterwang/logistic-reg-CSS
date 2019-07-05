@@ -234,14 +234,68 @@ class:middle
 
 $$\log(\mathbf{Odds}_{E+})  = \log(\mathbf{Odds}_{E-}) + \log(\mathbf{OR})$$
 
+Therefore, we can write down our model:
+
+$$\log(\mathbf{Odds})  = -3.687 + 1.717 \times \mathbf{Vimp}$$
+
+Hence, the log odds: 
+
+- for those with **unimpaired vision**: $\log(\mathbf{Odds}) = -3.687 + 1.717 \times 0 = -3.687$; 
+
+- for those with **visually impaired**: $\log(\mathbf{Odds}) = -3.687 + 1.717 \times 1 = -1.970$
+
+The odds ratio (OR) = $\exp(1.717) = 5.567$
+
+---
+class:middle
+### Look at the output again 
+
+
+```
+## Call:
+## glm(formula = died ~ vimp, family = binomial(link = "logit"), 
+##     data = mortality)
+## {ommitted}
+## Coefficients:
+##             Estimate `Std. Error` z value Pr(>|z|)    
+## (Intercept)  -3.6873     `0.1028` -35.870   <2e-16 ***
+## vimp          1.7167     `0.1976`   8.687   <2e-16 ***
+## {ommitted}
+```
+
+- `Std.Error` can be used to calculate the 95% confidence interval (CI): $$\log\mathbf{OR} \pm 1.96\times\mathbf{S.E}$$
+
+Therefore, 
+
+- 95%CI for logOR of `vimp`: $1.7167 \pm 1.96 \times 0.1976 = (1.329, 2.104)$ 
+
+- 95%CI for OR of `vimp`: $(\exp(1.329) = 3.78, \exp(2.104) = 8.19)$
+
 ---
 class:middle
 
-### Fit the model in R (2)
+### Fit the model in R (2), turn logOR to OR 
 
-```{r}
+```{r eval=FALSE}
 # install the package if needed by install.packages("epiDisplay")
 library(epiDisplay)
 logistic.display(vimp_logm0, decimal = 3)
 ```
+
+
+```
+## 
+## Logistic regression predicting died 
+##  
+##               `OR(95%CI)`            P(Wald's test) P(LR-test)
+## `vimp: 1 vs 0  5.566 (3.779,8.199)  < 0.001        < 0.001`   
+##                                                             
+## Log-likelihood = -577.36596
+## No. of observations = 4298
+## AIC value = 1158.73192
+```
+
+---
+class: middle 
+## Logistic model for comparison of more than two exposure groups
 
