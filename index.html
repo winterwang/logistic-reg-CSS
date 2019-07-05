@@ -169,11 +169,11 @@ class:middle
 
 - Fill in the **risk, odds and log odds** of death in the visually impaired and unimpaired individuals.
 
-|          | Unimpaired | Visually impaired | Total  |
-|----------|:----------:|:--------:|:--------:|
-| Risk     |            |          |   `\(3.19\%\)`  |
-| Odds     |            |          |  `\(0.0329\)`  |
-| Log odds |            |          |  `\(-3.414\)`  |
+|          | Unimpaired | Visually impaired |  Total   |
+| :------- | :--------: | :---------------: | :------: |
+| Risk     |            |                   | `\(3.19\%\)` |
+| Odds     |            |                   | `\(0.0329\)` |
+| Log odds |            |                   | `\(-3.414\)` |
 
 - What is the Odds Ratio?
 - What is the log(odds ratio)?
@@ -184,11 +184,11 @@ class:middle
 
 - Fill in the **risk, odds and log odds** of death in the visually impaired and unimpaired individuals.
 
-|          | Unimpaired | Visually impaired | Total  |
-|----------|:----------:|:--------:|:--------:|
-| Risk     |  `\(2.44\%\)`  | `\(12.23\%\)`|   `\(3.19\%\)`  |
-| Odds     | `\(97/3874 = 0.0250\)`| `\(40/287 = 0.1394\)`|  `\(0.0329\)`  |
-| Log odds | `\(\log(0.0250)=-3.68\)`  |  `\(\log(0.1394)=-1.97\)` |  `\(-3.414\)`  |
+|          |      Unimpaired      |  Visually impaired   |  Total   |
+| :------- | :------------------: | :------------------: | :------: |
+| Risk     |       `\(2.44\%\)`       |      `\(12.23\%\)`       | `\(3.19\%\)` |
+| Odds     |  `\(97/3874 = 0.0250\)`  |  `\(40/287 = 0.1394\)`   | `\(0.0329\)` |
+| Log odds | `\(\log(0.0250)=-3.68\)` | `\(\log(0.1394)=-1.97\)` | `\(-3.414\)` |
 
 - What is the Odds Ratio? `$$0.1394/0.0250 = 5.576$$`
 - What is the log(odds ratio)? `$$\log(5.576) = -1.97 - (-3.68) = 1.71$$`
@@ -338,6 +338,36 @@ print(tab, digits = 2)
 ##              100.00  100.00  100.00  100.00  100.00  
 ##  ---------------------------------------------------
 ```
+
+
+---
+class:middle
+### Exercise 2: 
+
+- Complete this table by calculating the **odds, log odds, odds ratios** (compared to microfilarial group uninfected [0]) and log odds ratios as required.
+
+|                | uninfected |  `\(&lt;10\)`   | `\(10\sim 49\)` | `\(\geqslant50\)` |
+| :------------- | :--------: | :------: | :---------: | :-----------: |
+| Risk           |  `\(2.23\%\)`  | `\(3.71\%\)` |  `\(3.21\%\)`   |   `\(4.46\%\)`    |
+| Odds           |  `\(0.0228\)`  | `\(0.0385\)` |  `\(0.0331\)`   |   `\(0.0466\)`    |
+| Odds ratio     |    `\(1\)`     | `\(1.693\)`  |   `\(1.456\)`   |               |
+| Log odds       |  `\(-3.783\)`  |          |             |   `\(-3.065\)`    |
+| Log Odds ratio |    `\(0\)`     | `\(0.526\)`  |   `\(0.375\)`   |               |
+
+
+---
+class:middle
+### Exercise 2: the answers
+
+- Complete this table by calculating the **odds, log odds, odds ratios** (compared to microfilarial group uninfected [0]) and log odds ratios as required.
+
+|                | uninfected |          `\(&lt;10\)`           |       `\(10\sim 49\)`       |      `\(\geqslant50\)`       |
+| :------------- | :--------: | :----------------------: | :---------------------: | :----------------------: |
+| Risk           |  `\(2.23\%\)`  |         `\(3.71\%\)`         |        `\(3.21\%\)`         |         `\(4.46\%\)`         |
+| Odds           |  `\(0.0228\)`  |         `\(0.0385\)`         |        `\(0.0331\)`         |         `\(0.0466\)`         |
+| Odds ratio     |    `\(1\)`     |         `\(1.693\)`          |         `\(1.456\)`         | `\(0.0466/0.0228\)` `\(=2.044\)` |
+| Log odds       |  `\(-3.781\)`  | `\(\log(0.0385)\)` `\(=-3.257\)` | `\(\log(0.0466)\)` `\(-3.066\)` |         `\(-3.066\)`         |
+| Log Odds ratio |    `\(0\)`     |         `\(0.526\)`          |         `\(0.375\)`         |  `\(\log(2.044) = 0.715\)`   |
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
