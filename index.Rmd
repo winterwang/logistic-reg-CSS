@@ -1,6 +1,6 @@
 ---
 title: "Understand Logistic Regression"
-subtitle: "why we use it and what does it provide"
+# subtitle: "why we use it and what does it provide"
 author: "王　超辰 | Chaochen Wang"
 date: "2019-07-08 17:00~18:00 @CSS"
 output:
@@ -349,4 +349,121 @@ class:middle
 | Odds           |  $0.0228$  |         $0.0385$         |        $0.0331$         |         $0.0466$         |
 | Odds ratio     |    $1$     |         $1.693$          |         $1.456$         | $0.0466/0.0228$ $=2.044$ |
 | Log odds       |  $-3.781$  | $\log(0.0385)$ $=-3.257$ | $\log(0.0466)$ $-3.066$ |         $-3.066$         |
-| Log Odds ratio |    $0$     |         $0.526$          |         $0.375$         |  $\log(2.044) = 0.715$   |
+| Log Odds ratio |    $0$     |         $0.526$          |         $0.375$         | $\log(2.044)$ $= 0.715$  |
+
+
+---
+class:middle 
+
+### Fit the model in R (3)
+
+```{r, eval=FALSE}
+vimp_logm1 <- glm(died ~ mfgrp, data = mortality, 
+                  family = binomial(link = "logit"))
+summary(vimp_logm1)
+```
+
+```
+##Call:
+##glm(formula = died ~ mfgrp, family = binomial(link = "logit"), 
+##    data = mortality)
+##
+##Deviance Residuals: 
+##    Min       1Q   Median       3Q      Max  
+##-0.3019  -0.2750  -0.2553  -0.2122   2.7587  
+##
+##Coefficients:
+##            Estimate Std. Error z value Pr(>|z|)    
+##`(Intercept)  -3.7826     0.1878 -20.143   <2e-16 ***`
+##`mfgrp< 10     0.5264     0.2281   2.308   0.0210 *`  
+##`mfgrp10-49    0.3754     0.2580   1.455   0.1457`    
+##`mfgrp50+      0.7172     0.3893   1.842   0.0655 .`  
+##---
+##Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+##
+##(Dispersion parameter for binomial family taken to be 1)
+##
+##    Null deviance: 1180.4  on 4204  degrees of freedom
+##Residual deviance: 1173.7  on 4201  degrees of freedom
+##  (93 observations deleted due to missingness)
+##AIC: 1181.7
+##
+##Number of Fisher Scoring iterations: 6
+```
+
+
+---
+class:middle 
+
+### Dummy variables for the categorical variables
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+library(dummies)
+dum <- as.data.frame(dummy(mortality$mfgrp, sep = "_"))
+names(dum) <- c("mfgrp_Uninfected", "mfgrp_< 10", "mfgrp_10-49", "mortality_50+", "Missing")
+# cbind(mortality, dum) %>%
+#    select(id, mfgrp, `mfgrp_Uninfected`, `mfgrp_< 10`, `mfgrp_10-49`, `mortality_50+`)
+```
+
+```
+## id      mfgrp  mfgrp_< 10 mfgrp_10-49 mortality_50+
+## 1  Uninfected           0           0             0
+## 2        < 10           1           0             0
+## 3        < 10           1           0             0
+## 4       10-49           0           1             0
+## 5        < 10           1           0             0
+## 6        <NA>           0           0             0
+## 14 Uninfected           0           0             0
+## 15       <NA>           0           0             0
+## 16       < 10           1           0             0
+## 17       < 10           1           0             0
+## 18       <NA>           0           0             0
+## 19       < 10           1           0             0
+## 22       < 10           1           0             0
+## 23 Uninfected           0           0             0
+## 24       < 10           1           0             0
+## 29       <NA>           0           0             0
+## 30      10-49           0           1             0
+## 31 Uninfected           0           0             0
+## 33      10-49           0           1             0
+## 34 Uninfected           0           0             0
+## 35      10-49           0           1             0
+## 38        50+           0           0             1
+```
+
+
+---
+class:middle 
+### Recall that the logistic regression model is written as: 
+
+$$\log(\mathbf{Odds}_{E+})  = \log(\mathbf{Odds}_{E-}) + \log(\mathbf{OR})$$
+
+Therefore, we can write down our model as:
+
+$\log(\mathbf{Odds})  = -3.7826 + 0.5264 \times$ `mfgrp_< 10` $+ 0.3754\times$ `mfgrp_10-49` $+ 0.7172\times$ `mortality_50+`
+
+
+
+---
+class:middle
+
+### Fit the model in R (4), turn logOR to OR 
+
+```{r eval=FALSE}
+logistic.display(vimp_logm1, decimal = 3)
+```
+
+```
+##Logistic regression predicting died 
+## 
+##                       `OR(95%CI)            P(Wald's test) P(LR-test)`
+##`mfgrp: ref.=Uninfected                                     0.0822`    
+##   `< 10                1.693 (1.083,2.647)  0.021`                    
+##   `10-49               1.456 (0.878,2.414)  0.1457`                   
+##   `50+                 2.049 (0.955,4.394)  0.0655`                   
+##                                                                     
+##Log-likelihood = -586.86507
+##No. of observations = 4205
+##AIC value = 1181.73014
+```
+
