@@ -140,8 +140,8 @@ mortality &lt;- read_dta("dataset/mortality.dta")
 library(Epi)
 tab &lt;- stat.table(index = list(Died = died, 
                                "Visually impaired" = vimp),
-                   contents=list(count(),percent(died)), 
-                  data=mortality, margins=T)
+                   contents = list(count(),percent(died)), 
+                  data = mortality, margins = T)
 print(tab, digits = 2)
 ```
 
@@ -161,12 +161,117 @@ print(tab, digits = 2)
 ##           100.00  100.00  100.00  
 ##  --------------------------------
 ```
+
+
+---
+class:middle
+### Exercise 1: 
+
+- Fill in the **risk, odds and log odds** of death in the visually impaired and unimpaired individuals.
+
+|          | Unimpaired | Visually impaired | Total  |
+|----------|:----------:|:--------:|:--------:|
+| Risk     |            |          |   `\(3.19\%\)`  |
+| Odds     |            |          |  `\(0.0329\)`  |
+| Log odds |            |          |  `\(-3.414\)`  |
+
+- What is the Odds Ratio?
+- What is the log(odds ratio)?
+
+---
+class:middle
+### Exercise 1: the answers
+
+- Fill in the **risk, odds and log odds** of death in the visually impaired and unimpaired individuals.
+
+|          | Unimpaired | Visually impaired | Total  |
+|----------|:----------:|:--------:|:--------:|
+| Risk     |  `\(2.44\%\)`  | `\(12.23\%\)`|   `\(3.19\%\)`  |
+| Odds     | `\(97/3874 = 0.0250\)`| `\(40/287 = 0.1394\)`|  `\(0.0329\)`  |
+| Log odds | `\(\log(0.0250)=-3.68\)`  |  `\(\log(0.1394)=-1.97\)` |  `\(-3.414\)`  |
+
+- What is the Odds Ratio? `$$0.1394/0.0250 = 5.576$$`
+- What is the log(odds ratio)? `$$\log(5.576) = -1.97 - (-3.68) = 1.71$$`
+
+
+---
+class:middle 
+
+### Fit the model in R (1)
+
+
+```r
+vimp_logm0 &lt;- glm(died ~ vimp, data = mortality, 
+                  family = binomial(link = "logit"))
+summary(vimp_logm0)
+```
+
+```
+## Call:
+## glm(formula = died ~ vimp, family = binomial(link = "logit"), 
+##     data = mortality)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.5108  -0.2224  -0.2224  -0.2224   2.7247  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## `(Intercept)  -3.6873     0.1028 -35.870   &lt;2e-16 ***`
+## `vimp          1.7167     0.1976   8.687   &lt;2e-16 ***`
+## ---
+## Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1213.8  on 4297  degrees of freedom
+## Residual deviance: 1154.7  on 4296  degrees of freedom
+## AIC: 1158.7
+## 
+## Number of Fisher Scoring iterations: 6
+```
+
+???
+- The first column notes the names of the explanatory variable `vimp`. 
+- The first row `(Intercept)` refers to the baseline (log odds in the baseline group)
+- The second column, labelled `Estimate` is the estimates of the logOdds (unimpaired) logOR for visual impairment
+
+---
+class:middle 
+### Recall that the logistic regression model is written as: 
+
+`$$\log(\mathbf{Odds}_{E+})  = \log(\mathbf{Odds}_{E-}) + \log(\mathbf{OR})$$`
+
+---
+class:middle
+
+### Fit the model in R (2)
+
+
+```r
+# install the package if needed by install.packages("epiDisplay")
+library(epiDisplay)
+logistic.display(vimp_logm0, decimal = 3)
+```
+
+```
+## 
+## Logistic regression predicting died 
+##  
+##               OR(95%CI)            P(Wald's test) P(LR-test)
+## vimp: 1 vs 0  5.566 (3.779,8.199)  &lt; 0.001        &lt; 0.001   
+##                                                             
+## Log-likelihood = -577.36596
+## No. of observations = 4298
+## AIC value = 1158.73192
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
+"highlightSpans": true,
 "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
