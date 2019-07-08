@@ -4,6 +4,7 @@
     <title>Understand Logistic Regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="王　超辰 | Chaochen Wang" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -478,6 +479,197 @@ logistic.display(vimp_logm1, decimal = 3)
 ##Log-likelihood = -586.86507
 ##No. of observations = 4205
 ##AIC value = 1181.73014
+```
+
+---
+class: middle, inverse, center
+
+# Logistic Regression 2: models with more than one variable
+
+---
+class: middle
+## Number of deaths, by visual impairment and age group
+
+
+```r
+mortality %&gt;% 
+  group_by(agegrp, died, vimp) %&gt;% 
+  summarise(n = n())
+```
+
+```
+## # A tibble: 16 x 4
+## # Groups:   agegrp, died [8]
+##       agegrp  died                  vimp     n
+##    &lt;dbl+lbl&gt; &lt;dbl&gt;             &lt;dbl+lbl&gt; &lt;int&gt;
+##  1 0 [15-34]     0 0 [Normal]             2301
+##  2 0 [15-34]     0 1 [Visually impaired]    22
+##  3 0 [15-34]     1 0 [Normal]               29
+##  4 0 [15-34]     1 1 [Visually impaired]     2
+##  5 1 [35-54]     0 0 [Normal]             1271
+##  6 1 [35-54]     0 1 [Visually impaired]   124
+##  7 1 [35-54]     1 0 [Normal]               38
+##  8 1 [35-54]     1 1 [Visually impaired]    10
+##  9 2 [55-64]     0 0 [Normal]              212
+## 10 2 [55-64]     0 1 [Visually impaired]    69
+## 11 2 [55-64]     1 0 [Normal]               15
+## 12 2 [55-64]     1 1 [Visually impaired]    11
+## 13 3 [65+]       0 0 [Normal]               90
+## 14 3 [65+]       0 1 [Visually impaired]    72
+## 15 3 [65+]       1 0 [Normal]               15
+## 16 3 [65+]       1 1 [Visually impaired]    17
+```
+
+---
+class:middle, center
+## Number of deaths, by visual impairment and age group
+
+
+&lt;table class="table table-striped table-bordered" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="border-bottom:hidden" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="8"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;died (0 = no, 1 = yes)&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th style="border-bottom:hidden" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;agegrp 15-34&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;agegrp 35-54&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;agegrp 55-64&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;agegrp 65+&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; vimp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 0 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 1 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2301 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1271 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 212 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 69 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 72 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+```
+##  --------------------------- 
+##            ------Died------- 
+##  Visually         0       1  
+##  impaired                    
+##  --------------------------- 
+##  0          3874.00   97.00  
+##               97.56    2.44  
+##                              
+##  1           287.00   40.00  
+##               87.77   12.23  
+##  ---------------------------
+```
+
+
+
+
+
+---
+class: middle 
+
+### The odds of visual impairment increase with age. 
+
+- agegrp = 13-34: `$$(22 + 2) / (29 + 2301) = 0.010$$`  
+- agegrp = 35-54: `$$(124 + 10) / (1271 + 38) = 0.102$$`
+- agegrp = 55-64: `$$(69 + 11) / (212 + 15) = 0.352$$`
+- agegrp = 65+:   `$$(72 + 17) / (90 + 15) = 0.847$$`
+
+---
+class: middle 
+
+### The odds of death also increase with age. 
+
+- agegrp = 13-34: `$$(29 + 2) / (2301 + 22) = 0.013$$`
+- agegrp = 35-54: `$$(38 + 10) / (1271 + 124) = 0.034$$`
+- agegrp = 54-64: `$$(15 + 11) / (212 + 69) = 0.093$$`
+- agegrp = 65+: `$$(15 + 17) / (90 + 72) = 0.198$$` 
+
+
+---
+class: middle
+### Exercise 3: 
+
+- Fill in the **odds of death odds ratios** of death in the visually impaired and unimpaired individuals, by **age group**.
+
+
+|  agegrp   | vimp = 0 | vimp = 1 | odds ratio |
+| :------- | :------: | :------: | :--------: |
+| 0 (15-34) | 0.01260  |          |            |
+| 1 (35-54) | 0.02990  |          |            |
+| 2 (55-64) | 0.07075  |          |            |
+|  3 (65+)  | 0.16667  |          |            |
+
+
+
+---
+class: middle
+### Exercise 3: answers
+
+- Fill in the **odds of death odds ratios** of death in the visually impaired and unimpaired individuals, by **age group**.
+
+|  agegrp   | vimp = 0 | vimp = 1 | odds ratio |
+| :------- | :------: | :------: | :--------: |
+| 0 (15-34) | 0.01260  |  0.0909  |   7.214    |
+| 1 (35-54) | 0.02990  | 0.08065  |   2.6973   |
+| 2 (55-64) | 0.07075  | 0.15942  |   2.2533   |
+|  3 (65+)  | 0.16667  | 0.23611  |   1.4166   |
+
+
+---
+class:middle
+
+
+## Adjusting for confouding using logistic regression
+
+
+
+```r
+vimp_logm2 &lt;- glm(died ~ vimp + as.factor(agegrp), 
+                  data = mortality, 
+                  family = binomial(link = "logit"))
+library(epiDisplay)
+logistic.display(vimp_logm2, decimal = 3)
+```
+
+```
+##  
+##                          OR lower95ci upper95ci     Pr(&gt;|Z|)
+## vimp               2.202266  1.408816  3.442592 5.327933e-04
+## as.factor(agegrp)1 2.354987  1.484023  3.737116 2.774844e-04
+## as.factor(agegrp)2 5.415484  3.082732  9.513468 4.199207e-09
+## as.factor(agegrp)3 9.901309  5.541161 17.692306 9.839612e-15
 ```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

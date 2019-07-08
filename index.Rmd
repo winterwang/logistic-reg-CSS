@@ -467,3 +467,121 @@ logistic.display(vimp_logm1, decimal = 3)
 ##AIC value = 1181.73014
 ```
 
+---
+class: middle, inverse, center
+
+# Logistic Regression 2: models with more than one variable
+
+---
+class: middle
+## Number of deaths, by visual impairment and age group
+
+```{r}
+mortality %>% 
+  group_by(agegrp, died, vimp) %>% 
+  summarise(n = n())
+
+```
+
+---
+class:middle, center
+## Number of deaths, by visual impairment and age group
+
+
+```{r echo=FALSE}
+table1 <- mortality %>% 
+  group_by(agegrp, died, vimp) %>% 
+  summarise(n = n())
+tab1 <- as.data.frame(matrix(table1$n, ncol = 8, byrow = FALSE))
+tab1 <- cbind(vimp = c(0, 1), tab1)
+names(tab1) <- c("vimp", "0", "1", "0", "1", "0", "1", "0", "1")
+library(kableExtra)
+kable(tab1) %>% 
+  kable_styling(c("striped", "bordered")) %>% 
+  add_header_above(c(" ", "agegrp 15-34" = 2, 
+                     "agegrp 35-54" = 2, 
+                     "agegrp 55-64" = 2, 
+                     "agegrp 65+" = 2)) %>% 
+  add_header_above(c(" ", "died (0 = no, 1 = yes)" = 8)) #%>% 
+  
+```
+
+
+```{r echo=FALSE}
+tab <- stat.table(index = list("Visually impaired" = vimp, 
+                               Died = died),
+                   contents = list(count(),percent(died)), 
+                  data = mortality, margins = F)
+print(tab, digits = 2)
+```
+
+
+
+
+
+---
+class: middle 
+
+### The odds of visual impairment increase with age. 
+
+- agegrp = 13-34: $$(22 + 2) / (29 + 2301) = 0.010$$  
+- agegrp = 35-54: $$(124 + 10) / (1271 + 38) = 0.102$$
+- agegrp = 55-64: $$(69 + 11) / (212 + 15) = 0.352$$
+- agegrp = 65+:   $$(72 + 17) / (90 + 15) = 0.847$$
+
+---
+class: middle 
+
+### The odds of death also increase with age. 
+
+- agegrp = 13-34: $$(29 + 2) / (2301 + 22) = 0.013$$
+- agegrp = 35-54: $$(38 + 10) / (1271 + 124) = 0.034$$
+- agegrp = 54-64: $$(15 + 11) / (212 + 69) = 0.093$$
+- agegrp = 65+: $$(15 + 17) / (90 + 72) = 0.198$$ 
+
+
+---
+class: middle
+### Exercise 3: 
+
+- Fill in the **odds of death odds ratios** of death in the visually impaired and unimpaired individuals, by **age group**.
+
+
+|  agegrp   | vimp = 0 | vimp = 1 | odds ratio |
+| :------- | :------: | :------: | :--------: |
+| 0 (15-34) | 0.01260  |          |            |
+| 1 (35-54) | 0.02990  |          |            |
+| 2 (55-64) | 0.07075  |          |            |
+|  3 (65+)  | 0.16667  |          |            |
+
+
+
+---
+class: middle
+### Exercise 3: answers
+
+- Fill in the **odds of death odds ratios** of death in the visually impaired and unimpaired individuals, by **age group**.
+
+|  agegrp   | vimp = 0 | vimp = 1 | odds ratio |
+| :------- | :------: | :------: | :--------: |
+| 0 (15-34) | 0.01260  |  0.0909  |   7.214    |
+| 1 (35-54) | 0.02990  | 0.08065  |   2.6973   |
+| 2 (55-64) | 0.07075  | 0.15942  |   2.2533   |
+|  3 (65+)  | 0.16667  | 0.23611  |   1.4166   |
+
+
+---
+class:middle
+
+
+## Adjusting for confouding using logistic regression
+
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE}
+vimp_logm2 <- glm(died ~ vimp + as.factor(agegrp), 
+                  data = mortality, 
+                  family = binomial(link = "logit"))
+library(epiDisplay)
+logistic.display(vimp_logm2, decimal = 3)
+```
+
